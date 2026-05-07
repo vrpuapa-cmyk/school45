@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Муниципальный образовательный форум "Созидатели" | Нейросети в образовании</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #00ff88;
+            --dark-green: #00cc6a;
+            --neon-blue: #00d4ff;
+            --dark-bg: #0a0e1a;
+            --card-bg: rgba(20, 30, 50, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Neural network animation */
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .node {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-green);
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-150px) translateX(30px); }
+        }
+
+        /* Hero Banner Section */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            padding: 60px 0 40px;
+            border-bottom: 2px solid var(--primary-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .hero-logo {
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .school-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .school-logo img {
+            width: 150px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 14, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-green);
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text h1 {
+            font-size: 1.8em;
+            background: linear-gradient(135deg, var(--primary-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .logo-text p {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover {
+            border-color: var(--primary-green);
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about-content {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 255, 136, 0.1);
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+        }
+
+        /* Program Section */
+        .program-schedule {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+
+        .program-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .program-header h3 {
+            font-size: 2em;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .program-timeline {
+            position: relative;
+        }
+
+        .program-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-green);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .program-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary-green);
+        }
+
+        .program-item:hover {
+            background: rgba(0, 255, 136, 0.05);
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .program-time {
+            min-width: 150px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+        }
+
+        .program-content h4 {
+            color: var(--neon-blue);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .program-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .program-item.highlight {
+            background: rgba(0, 255, 136, 0.1);
+            border-left-color: var(--neon-blue);
+        }
+
+        .program-item.highlight::before {
+            background: var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .program-item.break {
+            background: rgba(0, 212, 255, 0.05);
+            border-left-color: var(--neon-blue);
+        }
+
+        /* AI Lab Section */
+        .ai-lab {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .ai-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .ai-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .ai-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .ai-card button {
+            margin-top: 15px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-green), var(--neon-blue));
+            border: none;
+            border-radius: 25px;
+            color: var(--dark-bg);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .ai-card button:hover {
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Interactive Demo */
+        .demo-container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 2px solid var(--neon-blue);
+        }
+
+        .chat-interface {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .user-message {
+            background: rgba(0, 255, 136, 0.2);
+            border-left: 3px solid var(--primary-green);
+            margin-left: 20%;
+        }
+
+        .ai-message {
+            background: rgba(0, 212, 255, 0.2);
+            border-right: 3px solid var(--neon-blue);
+            margin-right: 20%;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid var(--primary-green);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        .input-area button {
+            padding: 15px 30px;
+            background: var(--primary-green);
+            border: none;
+            border-radius: 10px;
+            color: var(--dark-bg);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .input-area button:hover {
+            background: var(--dark-green);
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quick-question-btn {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            color: var(--neon-blue);
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .quick-question-btn:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Copyright Checker */
+        .copyright-checker {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 2px solid var(--primary-green);
+        }
+
+        .copyright-checker textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1em;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        /* Feedback Form */
+        .feedback-form {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .rating {
+            display: flex;
+            gap: 10px;
+            font-size: 2em;
+        }
+
+        .star {
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+        }
+
+        .star:hover,
+        .star.active {
+            color: var(--primary-green);
+            text-shadow: 0 0 20px var(--primary-green);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-green), var(--neon-blue));
+            border: none;
+            border-radius: 10px;
+            color: var(--dark-bg);
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 26, 0.95);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 2px solid var(--primary-green);
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            color: var(--text-secondary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 255, 136, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-green);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-green);
+            color: var(--dark-bg);
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .school-logo {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+            }
+
+            .school-logo img {
+                width: 120px;
+            }
+
+            .hero-logo {
+                max-width: 100%;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1.5em;
+            }
+
+            .program-item {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .program-time {
+                min-width: auto;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 255, 136, 0.3);
+            border-top-color: var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-green);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            animation: slideIn 0.5s;
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        .notification.success {
+            border-color: var(--primary-green);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .notification.error {
+            border-color: #ff4757;
+            background: rgba(255, 71, 87, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    
+    <!-- Neural Network Background -->
+    <div class="neural-network" id="neuralNetwork"></div>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="school-logo">
+                <img src="school45.png" alt="Логотип школы №45">
+            </div>
+
+            <div class="hero-content">
+                <div class="hero-logo-section">
+                    <img src="banner.png" alt="Баннер форума Созидатели" class="hero-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="logo.png" alt="Логотип Созидатели" class="logo">
+                    <div class="logo-text">
+                        <h1>СОЗИДАТЕЛИ</h1>
+                        <p>Муниципальный образовательный форум</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#about">О форуме</a></li>
+                        <li><a href="#program">Программа</a></li>
+                        <li><a href="#ai-lab">AI Лаборатория</a></li>
+                        <li><a href="#feedback">Отзывы</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">О форуме</h2>
+            <div class="about-content">
+                <p><strong>Муниципальный образовательный форум «Созидатели»</strong> — это ежегодная муниципальная площадка профессионального взаимодействия педагогических работников образовательных организаций Берёзовского городского округа.</p>
+                <p>Форум направлен на развитие инновационных подходов в образовании, обмен профессиональным опытом и распространение эффективных педагогических практик с использованием современных IT-технологий и искусственного интеллекта.</p>
+                <p><strong>Тема 2026 года:</strong> «Нейросети в образовании: авторство в эпоху искусственного интеллекта»</p>
+                <p><strong>Цель:</strong> создание муниципальной профессиональной площадки для развития педагогического сообщества, обмена профессиональным опытом и осмысления современных тенденций развития образования.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Section -->
+    <section id="program">
+        <div class="container">
+            <h2 class="section-title">Программа форума</h2>
+            <div class="program-schedule">
+                <div class="program-header">
+                    <h3>📅 Расписание мероприятия</h3>
+                    <p style="color: var(--text-secondary);">БМАОУ СОШ №45 г. Берёзовский</p>
+                </div>
+                
+                <div class="program-timeline">
+                    <div class="program-item highlight">
+                        <div class="program-time">09:00 – 09:30</div>
+                        <div class="program-content">
+                            <h4>📋 Регистрация участников</h4>
+                            <p>Выдача бейджей, маршрутных листов и раздаточных материалов, подключение к цифровой среде форума, участие в работе стартовых интерактивных зон</p>
+                        </div>
+                    </div>
+
+                    <div class="program-item highlight">
+                        <div class="program-time">09:30 – 10:00</div>
+                        <div class="program-content">
+                            <h4>🎯 Открытие форума. Тематическое погружение</h4>
+                            <p>Актуализация вопросов педагогического авторства и демонстрация возможностей нейросетевых технологий в образовательной практике</p>
+                        </div>
+                    </div>
+
+                    <div class="program-item">
+                        <div class="program-time">10:00 – 10:30</div>
+                        <div class="program-content">
+                            <h4>👥 Формирование команд</h4>
+                            <p>Организационный переход в рабочее пространство, постановка проектной задачи, выдача материалов</p>
+                        </div>
+                    </div>
+
+                    <div class="program-item">
+                        <div class="program-time">10:30 – 11:00</div>
+                        <div class="program-content">
+                            <h4>💡 Этап 1. Проектирование решения</h4>
+                            <p>Определение цели, структуры и логики образовательного продукта</p>
+                        </div>
+                    </div>
+
+                    <div class="program-item break">
+                        <div class="program-time">11:00 – 11:20</div>
+                        <div class="program-content">
+                            <h4>☕ Кофе-пауза</h4>
+                            <p>Коммуникация участников, нетворкинг</p>
+                        </div>
+                    </div>
+
+                    <div class="program-item">
+                        <div class="program-time">11:20 – 12:30</div>
+                        <div class="program-content">
+                            <h4>🛠️ Этап 2. Практическая работа</h4>
+                            <p>Разработка, сборка и оформление образовательного продукта</p>
+                        </div>
+                    </div>
+
+                    <div class="program-item highlight">
+                        <div class="program-time">12:30 – 13:00</div>
+                        <div class="program-content">
+                            <h4>🎤 Презентация результатов</h4>
+                            <p>Презентация результатов командной работы и подведение итогов форума</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Lab Section -->
+    <section id="ai-lab">
+        <div class="container">
+            <h2 class="section-title">AI Лаборатория</h2>
+            <div class="ai-lab">
+                <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">
+                    Интерактивные инструменты на базе искусственного интеллекта для педагогов
+                </p>
+                
+                <div class="ai-features">
+                    <div class="ai-card">
+                        <h3>🎓 AI-Ассистент форума</h3>
+                        <p>Получите ответы на все вопросы о форуме: программа, регистрация, участники, площадки и многое другое</p>
+                        <button onclick="openAIChat()">Запустить</button>
+                    </div>
+                    
+                    <div class="ai-card">
+                        <h3>©️ Проверка на авторство</h3>
+                        <p>Проверьте уникальный ли ваш контент и получите рекомендации по лицензированию</p>
+                        <button onclick="openCopyrightChecker()">Проверить</button>
+                    </div>
+                    
+                    <div class="ai-card">
+                        <h3>📊 Анализ образовательных трендов</h3>
+                        <p>Узнайте о последних тенденциях в образовании с помощью ИИ-аналитики</p>
+                        <button onclick="showTrends()">Показать тренды</button>
+                    </div>
+                </div>
+
+                <!-- AI Chat Interface - Enhanced -->
+                <div id="aiChat" class="demo-container" style="display: none;">
+                    <h3>🤖 AI-Ассистент форума «Созидатели»</h3>
+                    <p>Задайте любой вопрос о форуме. Я помогу вам с информацией о программе, регистрации, участниках, площадках и многом другом!</p>
+                    
+                    <div class="quick-questions">
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Когда и где проходит форум?')">📅 Когда и где?</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Как зарегистрироваться?')">📝 Регистрация</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Кто может участвовать?')">👥 Участники</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Какая программа?')">📋 Программа</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Какие нейросети будем изучать?')">🤖 Нейросети</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Бесплатно ли участие?')">💰 Стоимость</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Кто организатор?')">🏫 Организатор</button>
+                        <button class="quick-question-btn" onclick="askQuickQuestion('Выдают ли сертификаты?')">📜 Сертификаты</button>
+                    </div>
+                    
+                    <div class="chat-interface" id="chatInterface">
+                        <div class="chat-message ai-message">
+                            Здравствуйте! 👋 Я AI-ассистент муниципального образовательного форума «Созидатели».
+                            <br><br>
+                            Я могу помочь вам с информацией о:
+                            <br>• Программе и расписании форума
+                            <br>• Регистрации и участии
+                            <br>• Площадках и форматах работы
+                            <br>• Нейросетевых технологиях в образовании
+                            <br>• Авторском праве и лицензировании
+                            <br>• Организационных вопросах
+                            <br><br>
+                            Задайте свой вопрос или выберите быстрый вопрос выше!
+                        </div>
+                    </div>
+                    <div class="input-area">
+                        <input type="text" id="chatInput" placeholder="Введите ваш вопрос..." onkeypress="handleChatKeypress(event)">
+                        <button onclick="sendMessage()">Отправить</button>
+                    </div>
+                </div>
+
+                <!-- Copyright Checker -->
+                <div id="copyrightChecker" class="copyright-checker" style="display: none;">
+                    <h3>©️ Проверка контента на уникальность и лицензирование</h3>
+                    <p>Вставьте ваш текст или описание образовательного материала для анализа:</p>
+                    <textarea id="copyrightText" placeholder="Вставьте текст здесь..."></textarea>
+                    <button class="submit-btn" onclick="checkCopyright()" style="width: auto; padding: 12px 40px;">
+                        Проверить контент
+                    </button>
+                    <div id="copyrightResult" style="margin-top: 20px; padding: 20px; border-radius: 10px; display: none;"></div>
+                </div>
+
+                <!-- Trends Display -->
+                <div id="trendsDisplay" class="demo-container" style="display: none;">
+                    <h3>📊 Образовательные тренды 2026</h3>
+                    <div id="trendsContent" style="margin-top: 20px;">
+                        <div class="time-slot">
+                            <span class="time">🎯 Тренд 1</span>
+                            <span><strong>Адаптивное обучение с ИИ:</strong> Персонализация образовательных траекторий на основе анализа данных</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">🎯 Тренд 2</span>
+                            <span><strong>Микрообучение:</strong> Короткие образовательные модули по 5-15 минут для лучшего усвоения</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">🎯 Тренд 3</span>
+                            <span><strong>VR/AR в образовании:</strong> Иммерсивные технологии для погружения в учебный материал</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">🎯 Тренд 4</span>
+                            <span><strong>Цифровая грамотность:</strong> Развитие навыков критического мышления и работы с информацией</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">🎯 Тренд 5</span>
+                            <span><strong>Геймификация:</strong> Игровые механики для повышения мотивации учащихся</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback">
+        <div class="container">
+            <h2 class="section-title">Обратная связь</h2>
+            <div class="feedback-form">
+                <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                    <div class="form-group">
+                        <label for="name">ФИО *</label>
+                        <input type="text" id="name" name="name" required placeholder="Иванова Мария Петровна">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="organization">Образовательная организация *</label>
+                        <input type="text" id="organization" name="organization" required placeholder="МБОУ СОШ №...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="position">Должность</label>
+                        <select id="position" name="position">
+                            <option value="">Выберите должность</option>
+                            <option value="teacher">Учитель</option>
+                            <option value="admin">Руководитель ОО</option>
+                            <option value="deputy">Заместитель руководителя</option>
+                            <option value="advisor">Советник директора</option>
+                            <option value="organizer">Педагог-организатор</option>
+                            <option value="librarian">Библиотекарь</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Оцените форум *</label>
+                        <div class="rating" id="rating">
+                            <span class="star" onclick="setRating(1)">★</span>
+                            <span class="star" onclick="setRating(2)">★</span>
+                            <span class="star" onclick="setRating(3)">★</span>
+                            <span class="star" onclick="setRating(4)">★</span>
+                            <span class="star" onclick="setRating(5)">★</span>
+                        </div>
+                        <input type="hidden" id="ratingValue" name="rating" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback">Ваши впечатления и предложения *</label>
+                        <textarea id="feedback" name="feedback" required placeholder="Поделитесь своими впечатлениями о форуме, что было наиболее полезным, ваши предложения по улучшению..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" name="consent" required> 
+                            <span style="font-size: 0.9em; color: var(--text-secondary);">
+                                Я согласен(на) на обработку персональных данных *
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Отправить отзыв</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p><strong>Муниципальный образовательный форум «Созидатели»</strong></p>
+                <p>Берёзовский городской округ, 2026</p>
+                <p>Организатор: БМАОУ СОШ №45 г. Берёзовский</p>
+                <div class="social-links">
+                    <a href="#" title="Email">✉</a>
+                    <a href="#" title="Telegram">✈</a>
+                    <a href="#" title="VK">VK</a>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.9em;">
+                    © 2026 Все права защищены
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Create neural network background
+        function createNeuralNetwork() {
+            const container = document.getElementById('neuralNetwork');
+            const nodesCount = 50;
+            
+            for (let i = 0; i < nodesCount; i++) {
+                const node = document.createElement('div');
+                node.className = 'node';
+                node.style.left = Math.random() * 100 + '%';
+                node.style.top = Math.random() * 100 + '%';
+                node.style.animationDelay = Math.random() * 20 + 's';
+                node.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(node);
+            }
+        }
+
+        createNeuralNetwork();
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Rating system
+        function setRating(rating) {
+            document.getElementById('ratingValue').value = rating;
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show ' + type;
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // AI Chat functions - Enhanced
+        function openAIChat() {
+            document.getElementById('aiChat').style.display = 'block';
+            document.getElementById('copyrightChecker').style.display = 'none';
+            document.getElementById('trendsDisplay').style.display = 'none';
+            document.getElementById('aiChat').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function openCopyrightChecker() {
+            document.getElementById('copyrightChecker').style.display = 'block';
+            document.getElementById('aiChat').style.display = 'none';
+            document.getElementById('trendsDisplay').style.display = 'none';
+            document.getElementById('copyrightChecker').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showTrends() {
+            document.getElementById('trendsDisplay').style.display = 'block';
+            document.getElementById('aiChat').style.display = 'none';
+            document.getElementById('copyrightChecker').style.display = 'none';
+            document.getElementById('trendsDisplay').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function askQuickQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        function handleChatKeypress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatInterface = document.getElementById('chatInterface');
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user-message';
+            userMsg.textContent = message;
+            chatInterface.appendChild(userMsg);
+            
+            input.value = '';
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-message ai-message';
+                aiMsg.innerHTML = generateAIResponse(message);
+                chatInterface.appendChild(aiMsg);
+                chatInterface.scrollTop = chatInterface.scrollHeight;
+            }, 800);
+            
+            chatInterface.scrollTop = chatInterface.scrollHeight;
+        }
+
+        function generateAIResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Forum dates and location
+            if (lowerMessage.includes('когда') || lowerMessage.includes('где') || lowerMessage.includes('место') || lowerMessage.includes('дата') || lowerMessage.includes('время')) {
+                return '<strong>📅 Когда и где проходит форум:</strong><br><br>' +
+                       '📍 <strong>Место проведения:</strong> БМАОУ СОШ №45 г. Берёзовский<br>' +
+                       '⏰ <strong>Время:</strong> с 09:00 до 13:00<br>' +
+                       '📝 <strong>Регистрация:</strong> с 09:00 до 09:30<br>' +
+                       '🎯 <strong>Начало:</strong> 09:30<br><br>' +
+                       'Форум проводится в очном формате. Точная дата проведения определяется ежегодно Организатором и указывается в программе форума.';
+            }
+            
+            // Registration
+            if (lowerMessage.includes('регистрац') || lowerMessage.includes('зарегистрироват') || lowerMessage.includes('как записат')) {
+                return '<strong>📝 Регистрация на форум:</strong><br><br>' +
+                       '✅ <strong>Порядок регистрации:</strong><br>' +
+                       '1. Заполните электронную регистрационную форму (ссылка предоставляется в информационных материалах)<br>' +
+                       '2. Дождитесь подтверждения регистрации<br>' +
+                       '3. В день форума пройдите очную регистрацию с 09:00 до 09:30<br>' +
+                       '4. Получите бейдж, маршрутный лист и раздаточные материалы<br><br>' +
+                       '📌 <strong>Важно:</strong> Регистрация осуществляется на добровольной основе. Количество участников может быть ограничено квотой (2-3 представителя от одной образовательной организации).';
+            }
+            
+            // Participants
+            if (lowerMessage.includes('участник') || lowerMessage.includes('кто может') || lowerMessage.includes('учителя') || lowerMessage.includes('педагог')) {
+                return '<strong>👥 Участники форума:</strong><br><br>' +
+                       'Форум предназначен для педагогических работников образовательных организаций Берёзовского муниципального округа:<br><br>' +
+                       '✓ Учителя всех предметов<br>' +
+                       '✓ Руководители и заместители руководителей образовательных организаций<br>' +
+                       '✓ Советники директора по воспитанию<br>' +
+                       '✓ Педагоги-организаторы<br>' +
+                       '✓ Библиотекари<br>' +
+                       '✓ Иные педагогические работники<br><br>' +
+                       '📌 От каждой организации может участвовать 2-3 человека (квота может быть уточнена Организатором).';
+            }
+            
+            // Program
+            if (lowerMessage.includes('программ') || lowerMessage.includes('расписан') || lowerMessage.includes('этап')) {
+                return '<strong>📋 Программа форума:</strong><br><br>' +
+                       '<strong>09:00-09:30</strong> - Регистрация участников<br>' +
+                       '<strong>09:30-10:00</strong> - Открытие форума, тематическое погружение<br>' +
+                       '<strong>10:00-10:30</strong> - Формирование команд<br>' +
+                       '<strong>10:30-11:00</strong> - Этап 1: Проектирование решения<br>' +
+                       '<strong>11:00-11:20</strong> - Кофе-пауза<br>' +
+                       '<strong>11:20-12:30</strong> - Этап 2: Практическая работа<br>' +
+                       '<strong>12:30-13:00</strong> - Презентация результатов<br><br>' +
+                       'Форум носит практико-ориентированный характер. Участники создают образовательные продукты: методические решения, учебные материалы, сценарии, задания.';
+            }
+            
+            // Neural networks and AI
+            if (lowerMessage.includes('нейросет') || lowerMessage.includes('chatgpt') || lowerMessage.includes('ии') || lowerMessage.includes('искусственн') || lowerMessage.includes('интеллект')) {
+                return '<strong>🤖 Нейросети на форуме:</strong><br><br>' +
+                       'Тема форума 2026 года: <strong>«Нейросети в образовании: авторство в эпоху искусственного интеллекта»</strong><br><br>' +
+                       'На форуме вы:<br>' +
+                       '✓ Познакомитесь с возможностями нейросетевых технологий в образовании<br>' +
+                       '✓ Научитесь использовать ChatGPT и другие ИИ-инструменты<br>' +
+                       '✓ Узнаете, как сохранять педагогическое авторство при работе с ИИ<br>' +
+                       '✓ Освоите создание учебных материалов с помощью нейросетей<br>' +
+                       '✓ Разберёте правовые аспекты использования ИИ-контента<br><br>' +
+                       '🎯 <strong>Девиз форума:</strong> «Создаём, а не копируем. Учитель — автор, нейросеть — инструмент»';
+            }
+            
+            // Cost
+            if (lowerMessage.includes('платн') || lowerMessage.includes('бесплатн') || lowerMessage.includes('стоим') || lowerMessage.includes('цена') || lowerMessage.includes('взнос')) {
+                return '<strong>💰 Стоимость участия:</strong><br><br>' +
+                       '✅ <strong>Участие в форуме БЕСПЛАТНОЕ!</strong><br><br>' +
+                       'Расходы на организацию форума осуществляются за счёт средств Организатора (БМАОУ СОШ №45) и привлечённых средств партнёров.<br><br>' +
+                       '⚠️ Расходы на проезд к месту проведения и обратно участники несут самостоятельно или за счёт направляющей стороны.';
+            }
+            
+            // Organizer
+            if (lowerMessage.includes('организатор') || lowerMessage.includes('кто провод') || lowerMessage.includes('школа') || lowerMessage.includes('45')) {
+                return '<strong>🏫 Организатор форума:</strong><br><br>' +
+                       '<strong>БМАОУ СОШ №45 г. Берёзовский</strong><br><br>' +
+                       '📍 <strong>Адрес:</strong> г. Берёзовский<br>' +
+                       '🎓 <strong>Девиз школы:</strong> «Школа, где ты обретаешь новые грани»<br><br>' +
+                       'Организационный комитет форума:<br>' +
+                       '• Разрабатывает программу<br>' +
+                       '• Осуществляет регистрацию участников<br>' +
+                       '• Координирует работу площадок<br>' +
+                       '• Обеспечивает информационное сопровождение<br><br>' +
+                       'Возможны соорганизаторы и партнёры (образовательные организации, методические службы, учреждения культуры).';
+            }
+            
+            // Certificates
+            if (lowerMessage.includes('сертификат') || lowerMessage.includes('документ') || lowerMessage.includes('подтвержден')) {
+                return '<strong>📜 Документы участникам:</strong><br><br>' +
+                       '✅ По итогам форума участникам выдаются:<br>' +
+                       '• Сертификаты участников (при наличии)<br>' +
+                       '• Раздаточные и организационные материалы<br>' +
+                       '• Маршрутные листы<br><br>' +
+                       '📌 Сертификаты готовит Организационный комитет. Выдача происходит в ходе форума или после его завершения.';
+            }
+            
+            // Format
+            if (lowerMessage.includes('формат') || lowerMessage.includes('очн') || lowerMessage.includes('дистанц') || lowerMessage.includes('онлайн')) {
+                return '<strong>💻 Формат проведения:</strong><br><br>' +
+                       '🎯 <strong>Форум проводится в ОЧНОМ формате</strong><br><br>' +
+                       'Место проведения: БМАОУ СОШ №45 г. Берёзовский<br><br>' +
+                       'В программе предусмотрены:<br>' +
+                       '• Работа в командах<br>' +
+                       '• Практические занятия<br>' +
+                       '• Интерактивные зоны<br>' +
+                       '• Кофе-паузы и нетворкинг<br>' +
+                       '• Презентация результатов<br><br>' +
+                       'В случае необходимости отдельные условия могут уточняться программой Форума.';
+            }
+            
+            // Copyright
+            if (lowerMessage.includes('авторск') || lowerMessage.includes('право') || lowerMessage.includes('лиценз') || lowerMessage.includes('контент')) {
+                return '<strong>©️ Авторское право:</strong><br><br>' +
+                       'Одна из ключевых тем форума - авторство в эпоху ИИ:<br><br>' +
+                       '📌 <strong>Основные принципы:</strong><br>' +
+                       '• Учитель остаётся автором образовательного продукта<br>' +
+                       '• Нейросеть - это инструмент, а не соавтор<br>' +
+                       '• Важно соблюдать авторские права при использовании контента<br>' +
+                       '• Рекомендуется использовать открытые лицензии Creative Commons<br><br>' +
+                       'На форуме вы научитесь легально использовать материалы из интернета и создавать собственные образовательные ресурсы.';
+            }
+            
+            // Contact
+            if (lowerMessage.includes('контакт') || lowerMessage.includes('связ') || lowerMessage.includes('email') || lowerMessage.includes('почт') || lowerMessage.includes('телефон')) {
+                return '<strong>📞 Контактная информация:</strong><br><br>' +
+                       'По всем вопросам обращайтесь в Организационный комитет:<br><br>' +
+                       '📧 Email: указан в информационных материалах Форума<br>' +
+                       '🏫 Организатор: БМАОУ СОШ №45 г. Берёзовский<br><br>' +
+                       'Актуальная информация о форуме размещается:<br>' +
+                       '• В информационных материалах Форума<br>' +
+                       '• На информационных ресурсах Организатора<br>' +
+                       '• В социальных сетях школы №45';
+            }
+            
+            // Goals and tasks
+            if (lowerMessage.includes('цель') || lowerMessage.includes('задач') || lowerMessage.includes('зачем') || lowerMessage.includes('для чего')) {
+                return '<strong>🎯 Цель и задачи форума:</strong><br><br>' +
+                       '<strong>Цель:</strong> создание муниципальной профессиональной площадки для развития педагогического сообщества, обмена опытом и осмысления современных тенденций образования.<br><br>' +
+                       '<strong>Задачи:</strong><br>' +
+                       '✓ Актуализация ключевых вопросов развития образования<br>' +
+                       '✓ Профессиональное взаимодействие педагогов<br>' +
+                       '✓ Внедрение современных образовательных технологий<br>' +
+                       '✓ Обмен эффективными педагогическими практиками<br>' +
+                       '✓ Развитие профессиональных компетенций<br>' +
+                       '✓ Развитие муниципального педагогического сообщества';
+            }
+            
+            // Default response
+            return '<strong>🤖 AI-Ассистент:</strong><br><br>' +
+                   'Спасибо за ваш вопрос! Вот что я могу вам предложить:<br><br>' +
+                   '📌 <strong>Популярные темы:</strong><br>' +
+                   '• <em>«Когда и где проходит форум?»</em><br>' +
+                   '• <em>«Как зарегистрироваться?»</em><br>' +
+                   '• <em>«Кто может участвовать?»</em><br>' +
+                   '• <em>«Какая программа форума?»</em><br>' +
+                   '• <em>«Какие нейросети будем изучать?»</em><br>' +
+                   '• <em>«Бесплатно ли участие?»</em><br>' +
+                   '• <em>«Кто организатор?»</em><br>' +
+                   '• <em>«Выдают ли сертификаты?»</em><br><br>' +
+                   'Выберите одну из тем выше или задайте свой вопрос более подробно. Я здесь, чтобы помочь! 😊';
+        }
+
+        // Copyright checker
+        function checkCopyright() {
+            const text = document.getElementById('copyrightText').value.trim();
+            const resultDiv = document.getElementById('copyrightResult');
+            
+            if (!text) {
+                showNotification('Пожалуйста, введите текст для проверки', 'error');
+                return;
+            }
+            
+            // Simulate analysis
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="loading"></div> Анализируем контент...';
+            
+            setTimeout(() => {
+                const uniqueness = Math.floor(Math.random() * 30) + 70; // 70-100%
+                const recommendations = [];
+                
+                if (uniqueness < 85) {
+                    recommendations.push('Рекомендуется повысить уникальность текста');
+                }
+                if (text.length < 500) {
+                    recommendations.push('Материал небольшой. Рекомендуется расширить содержание.');
+                }
+                
+                recommendations.push('Рекомендуемая лицензия: Creative Commons Attribution-NonCommercial (CC BY-NC)');
+                recommendations.push('Не забудьте указать авторство при публикации');
+                
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--primary-green); margin-bottom: 15px;">✓ Анализ завершен</h4>
+                    <p><strong>Уникальность:</strong> ${uniqueness}%</p>
+                    <p><strong>Длина текста:</strong> ${text.length} символов</p>
+                    <p style="margin-top: 15px;"><strong>Рекомендации:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        ${recommendations.map(r => `<li style="margin-bottom: 8px;">${r}</li>`).join('')}
+                    </ul>
+                    <p style="margin-top: 15px; padding: 15px; background: rgba(0, 212, 255, 0.1); border-radius: 8px; border-left: 3px solid var(--neon-blue);">
+                        <strong>💡 Совет:</strong> Для образовательных материалов оптимально использовать открытые лицензии Creative Commons
+                    </p>
+                `;
+                resultDiv.style.background = 'rgba(0, 255, 136, 0.1)';
+                resultDiv.style.border = '2px solid var(--primary-green)';
+            }, 2000);
+        }
+
+        // Feedback form submission
+        function submitFeedback(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Validate rating
+            if (!data.rating) {
+                showNotification('Пожалуйста, оцените форум', 'error');
+                return;
+            }
+            
+            // Simulate form submission
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.innerHTML = '<span class="loading"></span> Отправка...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                showNotification('Спасибо за ваш отзыв! Он поможет нам сделать форум лучше.', 'success');
+                event.target.reset();
+                document.querySelectorAll('.star').forEach(star => star.classList.remove('active'));
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Add scroll animation
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.program-item, .ai-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (cardTop < windowHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            showNotification('Добро пожаловать на форум «Созидатели»! ', 'success');
+        });
+    </script>
+</body>
+</html>
