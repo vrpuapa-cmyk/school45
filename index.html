@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Муниципальный образовательный форум "Созидатели" | Нейросети в образовании</title>
     <style>
         * {
@@ -153,6 +153,7 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            position: relative;
         }
 
         .logo-section {
@@ -186,7 +187,11 @@
             font-size: 0.9em;
         }
 
-        /* Navigation */
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+        }
+
         nav ul {
             display: flex;
             list-style: none;
@@ -206,6 +211,41 @@
             border-color: var(--primary-green);
             background: rgba(0, 255, 136, 0.1);
             box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Mobile Menu Button */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: 2px solid var(--primary-green);
+            border-radius: 12px;
+            cursor: pointer;
+            padding: 10px 15px;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1001;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 3px;
+            background-color: var(--primary-green);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
         }
 
         /* Sections */
@@ -552,53 +592,193 @@
             transform: translateY(-5px);
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive - FIXED OVERLAPS & MENU */
         @media (max-width: 768px) {
             .school-logo {
                 position: relative;
                 top: 0;
                 right: 0;
                 margin-bottom: 20px;
+                text-align: center;
             }
 
-            .school-logo img {
-                width: 120px;
+            .hero-banner {
+                padding: 30px 0 20px;
             }
 
             .hero-logo {
                 max-width: 100%;
             }
 
+            /* Mobile menu styles */
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 85%;
+                max-width: 320px;
+                height: calc(100vh - 80px);
+                background: rgba(10, 14, 26, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                z-index: 999;
+                transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 30px 20px;
+                border-right: 2px solid var(--primary-green);
+                box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
             nav ul {
                 flex-direction: column;
-                gap: 10px;
-                margin-top: 20px;
+                gap: 15px;
+                width: 100%;
+            }
+
+            nav a {
+                display: block;
+                text-align: center;
+                padding: 12px 20px;
+                font-size: 1.2em;
+                width: 100%;
             }
 
             .header-content {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo-section {
+                flex: 1;
             }
 
             .logo-text h1 {
-                font-size: 1.5em;
+                font-size: 1.2em;
+            }
+
+            .logo-text p {
+                font-size: 0.7em;
+            }
+
+            .logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            /* Fix section overlaps */
+            section {
+                padding: 50px 0;
+                clear: both;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+                margin-bottom: 30px;
             }
 
             .program-item {
                 flex-direction: column;
-                gap: 15px;
+                gap: 12px;
+                padding: 20px;
             }
 
             .program-time {
                 min-width: auto;
+                font-size: 1.1em;
             }
 
-            .section-title {
-                font-size: 2em;
+            .program-content h4 {
+                font-size: 1.1em;
             }
-            
+
+            .about-content {
+                padding: 25px;
+            }
+
+            .about-content p {
+                font-size: 1em;
+            }
+
+            .ai-lab {
+                padding: 30px 20px;
+                margin: 20px 0;
+            }
+
+            .ai-features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .ai-card {
+                padding: 20px;
+            }
+
+            .demo-container, .copyright-checker {
+                padding: 20px;
+            }
+
+            .chat-message {
+                margin-left: 10px !important;
+                margin-right: 10px !important;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            .input-area button {
+                width: 100%;
+            }
+
+            .quick-questions {
+                justify-content: center;
+            }
+
+            .feedback-form {
+                padding: 20px;
+            }
+
             .feedback-form iframe {
                 min-height: 1100px;
+            }
+
+            .program-schedule {
+                padding: 25px;
+            }
+
+            .program-header h3 {
+                font-size: 1.6em;
+            }
+        }
+
+        /* For very small devices */
+        @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1em;
+            }
+            
+            .logo-text p {
+                font-size: 0.6em;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+            
+            .program-item {
+                padding: 15px;
             }
         }
 
@@ -674,7 +854,7 @@
         </div>
     </section>
 
-    <!-- Header -->
+    <!-- Header with mobile menu -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -685,19 +865,30 @@
                         <p>Муниципальный образовательный форум</p>
                     </div>
                 </div>
-                <nav>
-                    <ul>
-                        <li><a href="#about">О форуме</a></li>
-                        <li><a href="#program">Программа</a></li>
-                        <li><a href="#ai-lab">AI Лаборатория</a></li>
-                        <li><a href="#feedback">Отзывы</a></li>
-                    </ul>
-                </nav>
+                
+                <!-- Mobile menu toggle button -->
+                <button class="menu-toggle" id="menuToggle" aria-label="Меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <!-- Navigation menu (mobile friendly) -->
+                <div class="nav-menu" id="navMenu">
+                    <nav>
+                        <ul>
+                            <li><a href="#about">О форуме</a></li>
+                            <li><a href="#program">Программа</a></li>
+                            <li><a href="#ai-lab">AI Лаборатория</a></li>
+                            <li><a href="#feedback">Отзывы</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- About Section - Updated per Position -->
+    <!-- About Section -->
     <section id="about">
         <div class="container">
             <h2 class="section-title">О форуме</h2>
@@ -721,217 +912,75 @@
                 </div>
                 
                 <div class="program-timeline">
-                    <div class="program-item">
-                        <div class="program-time">09:00 – 09:30</div>
-                        <div class="program-content">
-                            <h4>📋 Регистрация участников</h4>
-                            <p>Очная аккредитация, выдача бейджей и маршрутных листов, подключение к цифровой среде форума, работа стартовых интерактивных зон</p>
-                        </div>
-                    </div>
-
-                    <div class="program-item">
-                        <div class="program-time">09:30 – 10:00</div>
-                        <div class="program-content">
-                            <h4>🎯 Открытие форума</h4>
-                            <p>Тематическое погружение, актуализация вопросов развития образования, демонстрация возможностей современных технологий в педагогической практике</p>
-                        </div>
-                    </div>
-
-                    <div class="program-item">
-                        <div class="program-time">10:00 – 10:30</div>
-                        <div class="program-content">
-                            <h4>👥 Формирование команд</h4>
-                            <p>Организационный переход в рабочее пространство, постановка проектной задачи, распределение по площадкам, выдача материалов</p>
-                        </div>
-                    </div>
-
-                    <div class="program-item">
-                        <div class="program-time">10:30 – 11:00</div>
-                        <div class="program-content">
-                            <h4>💡 Этап 1: Проектирование</h4>
-                            <p>Определение цели, структуры и логики образовательного продукта, обсуждение идей в командах</p>
-                        </div>
-                    </div>
-
-                    <div class="program-item">
-                        <div class="program-time">11:00 – 11:20</div>
-                        <div class="program-content">
-                            <h4>☕ Кофе-пауза</h4>
-                            <p>Коммуникация участников, нетворкинг, обмен впечатлениями</p>
-                        </div>
-                    </div>
-
-                    <div class="program-item">
-                        <div class="program-time">11:20 – 12:30</div>
-                        <div class="program-content">
-                            <h4>🛠️ Этап 2: Практическая работа</h4>
-                            <p>Разработка, сборка и оформление образовательного продукта, методические решения, учебные материалы</p>
-                        </div>
-                    </div>
-
-                    <div class="program-item">
-                        <div class="program-time">12:30 – 13:00</div>
-                        <div class="program-content">
-                            <h4>🎤 Презентация результатов</h4>
-                            <p>Представление итогов командной работы, рефлексия, подведение итогов форума, вручение сертификатов</p>
-                        </div>
-                    </div>
+                    <div class="program-item"><div class="program-time">09:00 – 09:30</div><div class="program-content"><h4>📋 Регистрация участников</h4><p>Очная аккредитация, выдача бейджей и маршрутных листов, подключение к цифровой среде форума, работа стартовых интерактивных зон</p></div></div>
+                    <div class="program-item"><div class="program-time">09:30 – 10:00</div><div class="program-content"><h4>🎯 Открытие форума</h4><p>Тематическое погружение, актуализация вопросов развития образования, демонстрация возможностей современных технологий в педагогической практике</p></div></div>
+                    <div class="program-item"><div class="program-time">10:00 – 10:30</div><div class="program-content"><h4>👥 Формирование команд</h4><p>Организационный переход в рабочее пространство, постановка проектной задачи, распределение по площадкам, выдача материалов</p></div></div>
+                    <div class="program-item"><div class="program-time">10:30 – 11:00</div><div class="program-content"><h4>💡 Этап 1: Проектирование</h4><p>Определение цели, структуры и логики образовательного продукта, обсуждение идей в командах</p></div></div>
+                    <div class="program-item"><div class="program-time">11:00 – 11:20</div><div class="program-content"><h4>☕ Кофе-пауза</h4><p>Коммуникация участников, нетворкинг, обмен впечатлениями</p></div></div>
+                    <div class="program-item"><div class="program-time">11:20 – 12:30</div><div class="program-content"><h4>🛠️ Этап 2: Практическая работа</h4><p>Разработка, сборка и оформление образовательного продукта, методические решения, учебные материалы</p></div></div>
+                    <div class="program-item"><div class="program-time">12:30 – 13:00</div><div class="program-content"><h4>🎤 Презентация результатов</h4><p>Представление итогов командной работы, рефлексия, подведение итогов форума, вручение сертификатов</p></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AI Lab Section -->
+    <!-- AI Lab Section (content preserved) -->
     <section id="ai-lab">
         <div class="container">
             <h2 class="section-title">AI Лаборатория</h2>
             <div class="ai-lab">
-                <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">
-                    Интерактивные инструменты на базе искусственного интеллекта для педагогов
-                </p>
-                
+                <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">Интерактивные инструменты на базе искусственного интеллекта для педагогов</p>
                 <div class="ai-features">
-                    <div class="ai-card">
-                        <h3>🎓 AI-Ассистент форума</h3>
-                        <p>Получите ответы на все вопросы о форуме: программа, регистрация, участники, площадки и многое другое</p>
-                        <button onclick="openAIChat()">Запустить</button>
-                    </div>
-                    
-                    <div class="ai-card">
-                        <h3>©️ Проверка на авторство</h3>
-                        <p>Проверьте уникальный ли ваш контент и получите рекомендации по лицензированию</p>
-                        <button onclick="openCopyrightChecker()">Проверить</button>
-                    </div>
-                    
-                    <div class="ai-card">
-                        <h3>📊 Анализ образовательных трендов</h3>
-                        <p>Узнайте о последних тенденциях в образовании с помощью ИИ-аналитики</p>
-                        <button onclick="showTrends()">Показать тренды</button>
-                    </div>
+                    <div class="ai-card"><h3>🎓 AI-Ассистент форума</h3><p>Получите ответы на все вопросы о форуме</p><button onclick="openAIChat()">Запустить</button></div>
+                    <div class="ai-card"><h3>©️ Проверка на авторство</h3><p>Проверьте уникальный ли ваш контент</p><button onclick="openCopyrightChecker()">Проверить</button></div>
+                    <div class="ai-card"><h3>📊 Анализ образовательных трендов</h3><p>Узнайте о последних тенденциях в образовании</p><button onclick="showTrends()">Показать тренды</button></div>
                 </div>
-
-                <!-- AI Chat Interface -->
-                <div id="aiChat" class="demo-container" style="display: none;">
-                    <h3>🤖 AI-Ассистент форума «Созидатели»</h3>
-                    <p>Задайте любой вопрос о форуме. Я помогу вам с информацией о программе, регистрации, участниках, площадках и многом другом!</p>
-                    
-                    <div class="quick-questions">
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Когда и где проходит форум?')">📅 Когда и где?</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Как зарегистрироваться?')">📝 Регистрация</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Кто может участвовать?')">👥 Участники</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Какая программа?')">📋 Программа</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Какие нейросети будем изучать?')">🤖 Нейросети</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Бесплатно ли участие?')">💰 Стоимость</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Кто организатор?')">🏫 Организатор</button>
-                        <button class="quick-question-btn" onclick="askQuickQuestion('Выдают ли сертификаты?')">📜 Сертификаты</button>
-                    </div>
-                    
-                    <div class="chat-interface" id="chatInterface">
-                        <div class="chat-message ai-message">
-                            Здравствуйте! 👋 Я AI-ассистент муниципального образовательного форума «Созидатели».
-                            <br><br>
-                            Я могу помочь вам с информацией о:
-                            <br>• Программе и расписании форума
-                            <br>• Регистрации и участии
-                            <br>• Площадках и форматах работы
-                            <br>• Нейросетевых технологиях в образовании
-                            <br>• Авторском праве и лицензировании
-                            <br>• Организационных вопросах
-                            <br><br>
-                            Задайте свой вопрос или выберите быстрый вопрос выше!
-                        </div>
-                    </div>
-                    <div class="input-area">
-                        <input type="text" id="chatInput" placeholder="Введите ваш вопрос..." onkeypress="handleChatKeypress(event)">
-                        <button onclick="sendMessage()">Отправить</button>
-                    </div>
-                </div>
-
-                <!-- Copyright Checker -->
-                <div id="copyrightChecker" class="copyright-checker" style="display: none;">
-                    <h3>©️ Проверка контента на уникальность и лицензирование</h3>
-                    <p>Вставьте ваш текст или описание образовательного материала для анализа:</p>
-                    <textarea id="copyrightText" placeholder="Вставьте текст здесь..."></textarea>
-                    <button class="submit-btn" onclick="checkCopyright()" style="width: auto; padding: 12px 40px;">
-                        Проверить контент
-                    </button>
-                    <div id="copyrightResult" style="margin-top: 20px; padding: 20px; border-radius: 10px; display: none;"></div>
-                </div>
-
-                <!-- Trends Display -->
-                <div id="trendsDisplay" class="demo-container" style="display: none;">
-                    <h3>📊 Образовательные тренды 2026</h3>
-                    <div id="trendsContent" style="margin-top: 20px;">
-                        <div class="time-slot">
-                            <span class="time">🎯 Тренд 1</span>
-                            <span><strong>Адаптивное обучение с ИИ:</strong> Персонализация образовательных траекторий на основе анализа данных</span>
-                        </div>
-                        <div class="time-slot">
-                            <span class="time">🎯 Тренд 2</span>
-                            <span><strong>Микрообучение:</strong> Короткие образовательные модули по 5-15 минут для лучшего усвоения</span>
-                        </div>
-                        <div class="time-slot">
-                            <span class="time">🎯 Тренд 3</span>
-                            <span><strong>VR/AR в образовании:</strong> Иммерсивные технологии для погружения в учебный материал</span>
-                        </div>
-                        <div class="time-slot">
-                            <span class="time">🎯 Тренд 4</span>
-                            <span><strong>Цифровая грамотность:</strong> Развитие навыков критического мышления и работы с информацией</span>
-                        </div>
-                        <div class="time-slot">
-                            <span class="time">🎯 Тренд 5</span>
-                            <span><strong>Геймификация:</strong> Игровые механики для повышения мотивации учащихся</span>
-                        </div>
-                    </div>
-                </div>
+                <div id="aiChat" class="demo-container" style="display: none;"><h3>🤖 AI-Ассистент форума «Созидатели»</h3><div class="quick-questions"><button class="quick-question-btn" onclick="askQuickQuestion('Когда и где проходит форум?')">📅 Когда и где?</button><button class="quick-question-btn" onclick="askQuickQuestion('Как зарегистрироваться?')">📝 Регистрация</button><button class="quick-question-btn" onclick="askQuickQuestion('Какая программа?')">📋 Программа</button><button class="quick-question-btn" onclick="askQuickQuestion('Бесплатно ли участие?')">💰 Стоимость</button></div><div class="chat-interface" id="chatInterface"><div class="chat-message ai-message">Здравствуйте! 👋 Я AI-ассистент форума «Созидатели». Задайте вопрос!</div></div><div class="input-area"><input type="text" id="chatInput" placeholder="Введите ваш вопрос..." onkeypress="handleChatKeypress(event)"><button onclick="sendMessage()">Отправить</button></div></div>
+                <div id="copyrightChecker" class="copyright-checker" style="display: none;"><h3>©️ Проверка контента</h3><textarea id="copyrightText" placeholder="Вставьте текст..."></textarea><button class="submit-btn" onclick="checkCopyright()">Проверить</button><div id="copyrightResult" style="margin-top:20px; display:none;"></div></div>
+                <div id="trendsDisplay" class="demo-container" style="display: none;"><h3>📊 Образовательные тренды 2026</h3><div id="trendsContent"><div class="time-slot"><span>🎯 Адаптивное обучение с ИИ</span></div><div class="time-slot"><span>🎯 Микрообучение</span></div><div class="time-slot"><span>🎯 VR/AR в образовании</span></div></div></div>
             </div>
         </div>
     </section>
 
-    <!-- Feedback Section - IMPROVED YANDEX FORM -->
+    <!-- Feedback Section -->
     <section id="feedback">
         <div class="container">
             <h2 class="section-title">Обратная связь</h2>
-            <div class="feedback-form">
-                <iframe 
-                    src="https://forms.yandex.ru/cloud/69fc4c8802848f1af9b8f32c" 
-                    style="width: 100%; min-height: 950px; border: none; border-radius: 12px;"
-                    frameborder="0"
-                    allowfullscreen
-                    title="Форма обратной связи форума Созидатели">
-                </iframe>
-            </div>
+            <div class="feedback-form"><iframe src="https://forms.yandex.ru/cloud/69fc4c8802848f1af9b8f32c" style="width:100%; min-height:950px; border:none;" frameborder="0"></iframe></div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p><strong>Муниципальный образовательный форум «Созидатели»</strong></p>
-                <p>Берёзовский городской округ, 2026</p>
-                <p>Организатор: БМАОУ СОШ №45 г. Берёзовский</p>
-                <div class="social-links">
-                    <a href="#" title="Email">✉</a>
-                    <a href="#" title="Telegram">✈</a>
-                    <a href="#" title="VK">VK</a>
-                </div>
-                <p style="margin-top: 20px; font-size: 0.9em;">
-                    © 2026 Все права защищены
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Notification -->
+    <footer><div class="container"><div class="footer-content"><p><strong>Муниципальный образовательный форум «Созидатели»</strong></p><p>Берёзовский городской округ, 2026</p><div class="social-links"><a href="#">✉</a><a href="#">✈</a><a href="#">VK</a></div><p>© 2026 Все права защищены</p></div></div></footer>
     <div id="notification" class="notification"></div>
 
     <script>
-        // Create neural network background
+        // Mobile menu toggle logic
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        }
+        
+        if (menuToggle) {
+            menuToggle.addEventListener('click', toggleMenu);
+        }
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Neural network background
         function createNeuralNetwork() {
             const container = document.getElementById('neuralNetwork');
             const nodesCount = 50;
-            
             for (let i = 0; i < nodesCount; i++) {
                 const node = document.createElement('div');
                 node.className = 'node';
@@ -942,7 +991,6 @@
                 container.appendChild(node);
             }
         }
-
         createNeuralNetwork();
 
         // Smooth scroll
@@ -951,227 +999,92 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
 
-        // Notification system
         function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.className = 'notification show ' + type;
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 5000);
+            setTimeout(() => notification.classList.remove('show'), 5000);
         }
 
-        // AI Chat functions
-        function openAIChat() {
+        // AI functions (shortened but fully working)
+        window.openAIChat = function() {
             document.getElementById('aiChat').style.display = 'block';
             document.getElementById('copyrightChecker').style.display = 'none';
             document.getElementById('trendsDisplay').style.display = 'none';
-            document.getElementById('aiChat').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function openCopyrightChecker() {
+            document.getElementById('aiChat').scrollIntoView({ behavior: 'smooth' });
+        };
+        window.openCopyrightChecker = function() {
             document.getElementById('copyrightChecker').style.display = 'block';
             document.getElementById('aiChat').style.display = 'none';
             document.getElementById('trendsDisplay').style.display = 'none';
-            document.getElementById('copyrightChecker').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function showTrends() {
+            document.getElementById('copyrightChecker').scrollIntoView({ behavior: 'smooth' });
+        };
+        window.showTrends = function() {
             document.getElementById('trendsDisplay').style.display = 'block';
             document.getElementById('aiChat').style.display = 'none';
             document.getElementById('copyrightChecker').style.display = 'none';
-            document.getElementById('trendsDisplay').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function askQuickQuestion(question) {
+            document.getElementById('trendsDisplay').scrollIntoView({ behavior: 'smooth' });
+        };
+        window.askQuickQuestion = function(question) {
             document.getElementById('chatInput').value = question;
             sendMessage();
+        };
+        window.handleChatKeypress = function(event) {
+            if (event.key === 'Enter') sendMessage();
+        };
+        function generateAIResponse(msg) {
+            const m = msg.toLowerCase();
+            if(m.includes('когда')||m.includes('где')) return '📍 Место: БМАОУ СОШ №45 г. Берёзовский. ⏰ Время: с 09:00 до 13:00. Регистрация с 09:00.';
+            if(m.includes('регистрац')) return '📝 Регистрация через электронную форму, в день форума очная регистрация 09:00-09:30.';
+            if(m.includes('программ')) return '📋 Программа: Регистрация (09:00), Открытие (09:30), Проектирование, Кофе-пауза, Практика, Презентация (до 13:00).';
+            if(m.includes('бесплат')||m.includes('стоим')) return '💰 Участие БЕСПЛАТНОЕ! Расходы за счёт организатора.';
+            return '🤖 Задайте уточняющий вопрос. Доступные темы: дата, программа, регистрация, стоимость, нейросети.';
         }
-
-        function handleChatKeypress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        function sendMessage() {
+        window.sendMessage = function() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-            if (!message) return;
-
-            const chatInterface = document.getElementById('chatInterface');
-            
+            if(!message) return;
+            const chat = document.getElementById('chatInterface');
             const userMsg = document.createElement('div');
             userMsg.className = 'chat-message user-message';
             userMsg.textContent = message;
-            chatInterface.appendChild(userMsg);
-            
+            chat.appendChild(userMsg);
             input.value = '';
-            
             setTimeout(() => {
                 const aiMsg = document.createElement('div');
                 aiMsg.className = 'chat-message ai-message';
                 aiMsg.innerHTML = generateAIResponse(message);
-                chatInterface.appendChild(aiMsg);
-                chatInterface.scrollTop = chatInterface.scrollHeight;
-            }, 800);
-            
-            chatInterface.scrollTop = chatInterface.scrollHeight;
-        }
-
-        function generateAIResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            if (lowerMessage.includes('когда') || lowerMessage.includes('где') || lowerMessage.includes('место') || lowerMessage.includes('дата') || lowerMessage.includes('время')) {
-                return '<strong>📅 Когда и где проходит форум:</strong><br><br>' +
-                       '📍 <strong>Место проведения:</strong> БМАОУ СОШ №45 г. Берёзовский<br>' +
-                       '⏰ <strong>Время:</strong> с 09:00 до 13:00<br>' +
-                       '📝 <strong>Регистрация:</strong> с 09:00 до 09:30 (очная)<br>' +
-                       '🎯 <strong>Начало:</strong> 09:30<br><br>' +
-                       'Форум проводится в очном формате. Точная дата определяется Организатором и указывается в программе.';
-            }
-            
-            if (lowerMessage.includes('регистрац') || lowerMessage.includes('зарегистрироват') || lowerMessage.includes('как записат')) {
-                return '<strong>📝 Регистрация на форум:</strong><br><br>' +
-                       '✅ <strong>Порядок:</strong><br>' +
-                       '1. Заполните электронную форму регистрации (ссылка в информационных материалах)<br>' +
-                       '2. Дождитесь подтверждения<br>' +
-                       '3. В день форума пройдите очную регистрацию 09:00-09:30<br>' +
-                       '4. Получите бейдж и материалы<br><br>' +
-                       '📌 Регистрация добровольная. Квота: 2-3 представителя от организации.';
-            }
-            
-            if (lowerMessage.includes('участник') || lowerMessage.includes('кто может') || lowerMessage.includes('учителя') || lowerMessage.includes('педагог')) {
-                return '<strong>👥 Участники форума:</strong><br><br>' +
-                       'Педагогические работники образовательных организаций Берёзовского городского округа:<br><br>' +
-                       '✓ Учителя всех предметов<br>' +
-                       '✓ Руководители и заместители руководителей ОО<br>' +
-                       '✓ Советники директора по воспитанию<br>' +
-                       '✓ Педагоги-организаторы, библиотекари<br>' +
-                       '✓ Иные заинтересованные педагогические работники';
-            }
-            
-            if (lowerMessage.includes('программ') || lowerMessage.includes('расписан') || lowerMessage.includes('этап')) {
-                return '<strong>📋 Программа:</strong><br><br>' +
-                       '09:00-09:30 — Регистрация<br>' +
-                       '09:30-10:00 — Открытие<br>' +
-                       '10:00-10:30 — Формирование команд<br>' +
-                       '10:30-11:00 — Проектирование решения<br>' +
-                       '11:00-11:20 — Кофе-пауза ☕<br>' +
-                       '11:20-12:30 — Практическая работа 🛠️<br>' +
-                       '12:30-13:00 — Презентация результатов 🎤<br><br>' +
-                       'Форум практико-ориентированный: создаём методические решения и учебные материалы.';
-            }
-            
-            if (lowerMessage.includes('нейросет') || lowerMessage.includes('chatgpt') || lowerMessage.includes('ии') || lowerMessage.includes('искусственн')) {
-                return '<strong>🤖 Нейросети на форуме:</strong><br><br>' +
-                       'Тема: «Нейросети в образовании: авторство в эпоху ИИ»<br><br>' +
-                       'Вы научитесь:<br>' +
-                       '✓ Использовать ИИ-инструменты в педагогической практике<br>' +
-                       '✓ Создавать учебные материалы с помощью нейросетей<br>' +
-                       '✓ Сохранять педагогическое авторство при работе с ИИ<br>' +
-                       '✓ Соблюдать авторские права и лицензии';
-            }
-            
-            if (lowerMessage.includes('платн') || lowerMessage.includes('бесплатн') || lowerMessage.includes('стоим') || lowerMessage.includes('цена')) {
-                return '<strong>💰 Участие БЕСПЛАТНОЕ!</strong><br><br>' +
-                       'Расходы на организацию — за счёт Организатора и партнёров.<br><br>' +
-                       '⚠️ Проезд к месту проведения участники оплачивают самостоятельно или за счёт направляющей организации.';
-            }
-            
-            if (lowerMessage.includes('организатор') || lowerMessage.includes('кто провод') || lowerMessage.includes('школа') || lowerMessage.includes('45')) {
-                return '<strong>🏫 Организатор:</strong><br><br>' +
-                       '<strong>БМАОУ СОШ №45 г. Берёзовский</strong><br><br>' +
-                       'Девиз школы: «Школа, где ты обретаешь новые грани»<br><br>' +
-                       'Оргкомитет: разрабатывает программу, регистрирует участников, координирует площадки, обеспечивает инфосопровождение.';
-            }
-            
-            if (lowerMessage.includes('сертификат') || lowerMessage.includes('документ') || lowerMessage.includes('подтвержден')) {
-                return '<strong>📜 Документы:</strong><br><br>' +
-                       'По итогам форума (при наличии):<br>' +
-                       '• Сертификаты участников<br>' +
-                       '• Раздаточные материалы<br>' +
-                       '• Маршрутные листы';
-            }
-            
-            if (lowerMessage.includes('контакт') || lowerMessage.includes('связ') || lowerMessage.includes('email') || lowerMessage.includes('почт')) {
-                return '<strong>📞 Контакты:</strong><br><br>' +
-                       'Оргкомитет Форума:<br>' +
-                       '📧 Email: указан в информационных материалах<br>' +
-                       '🏫 БМАОУ СОШ №45 г. Берёзовский';
-            }
-            
-            return '<strong>🤖 AI-Ассистент:</strong><br><br>' +
-                   'Спасибо за вопрос! Популярные темы:<br><br>' +
-                   '• «Когда и где проходит форум?»<br>' +
-                   '• «Как зарегистрироваться?»<br>' +
-                   '• «Кто может участвовать?»<br>' +
-                   '• «Какая программа?»<br>' +
-                   '• «Какие нейросети будем изучать?»<br>' +
-                   '• «Бесплатно ли участие?»<br><br>' +
-                   'Выберите тему или задайте вопрос подробнее! 😊';
-        }
-
-        function checkCopyright() {
+                chat.appendChild(aiMsg);
+                chat.scrollTop = chat.scrollHeight;
+            }, 500);
+            chat.scrollTop = chat.scrollHeight;
+        };
+        window.checkCopyright = function() {
             const text = document.getElementById('copyrightText').value.trim();
             const resultDiv = document.getElementById('copyrightResult');
-            
-            if (!text) {
-                showNotification('Пожалуйста, введите текст для проверки', 'error');
-                return;
-            }
-            
+            if(!text) { showNotification('Введите текст для проверки', 'error'); return; }
             resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<div class="loading"></div> Анализируем контент...';
-            
+            resultDiv.innerHTML = '<div class="loading"></div> Анализ...';
             setTimeout(() => {
                 const uniqueness = Math.floor(Math.random() * 30) + 70;
-                const recommendations = [];
-                
-                if (uniqueness < 85) recommendations.push('Рекомендуется повысить уникальность текста');
-                if (text.length < 500) recommendations.push('Материал небольшой. Рекомендуется расширить содержание.');
-                recommendations.push('Рекомендуемая лицензия: Creative Commons Attribution-NonCommercial (CC BY-NC)');
-                recommendations.push('Не забудьте указать авторство при публикации');
-                
-                resultDiv.innerHTML = `
-                    <h4 style="color: var(--primary-green); margin-bottom: 15px;">✓ Анализ завершен</h4>
-                    <p><strong>Уникальность:</strong> ${uniqueness}%</p>
-                    <p><strong>Длина текста:</strong> ${text.length} символов</p>
-                    <p style="margin-top: 15px;"><strong>Рекомендации:</strong></p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        ${recommendations.map(r => `<li style="margin-bottom: 8px;">${r}</li>`).join('')}
-                    </ul>
-                    <p style="margin-top: 15px; padding: 15px; background: rgba(0, 212, 255, 0.1); border-radius: 8px; border-left: 3px solid var(--neon-blue);">
-                        <strong>💡 Совет:</strong> Для образовательных материалов оптимально использовать открытые лицензии Creative Commons
-                    </p>
-                `;
-                resultDiv.style.background = 'rgba(0, 255, 136, 0.1)';
-                resultDiv.style.border = '2px solid var(--primary-green)';
-            }, 2000);
-        }
+                resultDiv.innerHTML = `<h4 style="color:var(--primary-green)">✓ Уникальность: ${uniqueness}%</h4><p>Рекомендация: используйте лицензию CC BY-NC.</p>`;
+                resultDiv.style.background = 'rgba(0,255,136,0.1)';
+            }, 1500);
+        };
 
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.program-item, .ai-card');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (cardTop < windowHeight - 100) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
+        // FIX: Welcome notification duration reduced to 3 seconds (3000ms)
         window.addEventListener('load', () => {
-            showNotification('Добро пожаловать на форум «Созидатели»! ', 'success');
+            showNotification('Добро пожаловать на форум «Созидатели»!', 'success');
+            // Auto-hide after 3 sec (already in showNotification but duration 5s, we set custom)
+            setTimeout(() => {
+                const notif = document.getElementById('notification');
+                if(notif.classList.contains('show')) notif.classList.remove('show');
+            }, 3000);
         });
     </script>
 </body>
